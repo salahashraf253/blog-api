@@ -45,7 +45,6 @@ class PostController extends Controller
         return response()->json(new PostResource($post));
     }
 
-    // Delete a post
     public function destroy($id)
     {
         $post = Auth::user()->posts()->findOrFail($id); 

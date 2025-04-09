@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
+use Illuminate\Support\Facades\Auth;
 
 
 class AuthController extends Controller
@@ -43,6 +44,15 @@ class AuthController extends Controller
                 'access_token' => $token->plainTextToken,
             ],
             'message' => 'User logged in successfully',
+        ], HttpResponse::HTTP_OK);
+    }
+
+    public function logout(): JsonResponse
+    {
+        Auth::user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'User logged out successfully',
         ], HttpResponse::HTTP_OK);
     }
 }
